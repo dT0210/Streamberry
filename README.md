@@ -10,8 +10,12 @@ Bài tập lớn môn công nghệ phần mềm K2N2 năm 2022
 - A41025    Nguyễn Đức Thành
 
 ## How to use
+
+
+
+
+```bash
 //Clone from github
-&nbsp;
 git clone https://github.com/dT0210/SoftwareEngineeringProject.git
 // run server
 cd server
@@ -20,6 +24,7 @@ npm start
 // run front-end
 cd client 
 npm i
+```
 
 ## Features:
 
