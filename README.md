@@ -12,15 +12,17 @@ Bài tập lớn môn công nghệ phần mềm K2N2 năm 2022
 ## How to use
 //Clone from github
 git clone https://github.com/dT0210/SoftwareEngineeringProject.git
+</br>
 // run server
 cd server
 npm i
 npm start
+</br>
 // run front-end
 cd client
 npm i
 npm start
-
+</br>
 ## Features:
 
 
