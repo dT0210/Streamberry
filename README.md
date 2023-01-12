@@ -16,19 +16,18 @@ git clone https://github.com/dT0210/SoftwareEngineeringProject.git
 </br>
 // run server
 </br>
-cd server
+</t>  cd server
 </br>
-npm i
+</t>  npm i
 </br>
-npm start
+</t> npm start
 </br>
-// run front-end
+</t> // run front-end
 </br>
-cd client
+</t> cd client
 </br>
-npm i
+</t> npm i
 </br>
-npm start
 </br>
 ## Features:
 
