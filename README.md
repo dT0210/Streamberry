@@ -1,3 +1,6 @@
+Source code đang để trên nhánh khác 
+https://github.com/DevHuy11/Netflix_web
+
 # Xây dựng bản mô phỏng ứng dụng Netflix 
 
 
