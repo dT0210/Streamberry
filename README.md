@@ -1,4 +1,4 @@
-Source code đang để trên nhánh khác còn issue trên nhánh này
+Source code đang để trên github thành viên khác khác còn issue trên nhánh này
 https://github.com/DevHuy11/Netflix_web
 
 # Xây dựng bản mô phỏng ứng dụng Netflix 
