@@ -32,9 +32,8 @@ npm i
 
 ## Backend:
 
-- Node.js
-- Express.js
-- MongoDB
+- Api IMDB  
+- 2embred.org
 
 ## Frontend:
 
