@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { Search } from "@mui/icons-material";
@@ -20,27 +19,14 @@ function Nav() {
     }
 
     const moviesClicked = () => {
-        navigate('/movies', {replace: true});
+        navigate('/home/movies', {replace: true});
     }
 
     const tvshowsClicked = () => {
-        navigate('/tvshows', {replace: true});
+        navigate('/home/tv', {replace: true});
     }
 
     const location = useLocation();
-
-    useEffect(() =>
-    {
-        if (location.pathname === '/home') {
-            document.getElementsByClassName('nav__home')[0].style.fontWeight = "bolder";
-        }
-        if (location.pathname === '/movies') {
-            document.getElementsByClassName('nav__movies')[0].style.fontWeight = "bolder";
-        }
-        if (location.pathname === '/tvshows') {
-            document.getElementsByClassName('nav__shows')[0].style.fontWeight = "bolder";
-        }
-    }, [location])
 
     const searchHandler = (e) => {
         e.preventDefault();
@@ -57,9 +43,15 @@ function Nav() {
                     alt=""
                     onClick={logoClicked}
                 />
-                <span className="nav__home" onClick={homeClicked}>Home</span>
-                <span className="nav__movies" onClick={moviesClicked}>Movies</span>
-                <span className="nav__shows" onClick={tvshowsClicked}>TV Shows</span>
+                <span className="nav__home"
+                    style={location.pathname === '/home' ? {color: "white"} : {}}
+                    onClick={homeClicked}>Home</span>
+                <span className="nav__movies"
+                    style={location.pathname === '/home/movies' ? {color: "white"} : {}}
+                    onClick={moviesClicked}>Movies</span>
+                <span className="nav__shows"
+                    style={location.pathname === '/home/tv' ? {color: "white"} : {}}
+                    onClick={tvshowsClicked}>TV Shows</span>
             </div>
             <div className="nav__right">
                 <form
@@ -73,6 +65,7 @@ function Nav() {
                         setQuery("");
                         setShowSearch(false);
                         }}
+                        id="Search"
                         required
                         placeholder="Titles, name ..."
                         type="search"
@@ -82,12 +75,11 @@ function Nav() {
                         }}/>
                     <Search
                         style={
-                        //icon on search field
                             showSearch ? { zIndex: "1" } : { display: "none" }
                         }
                         className="searchIcon"
                     />
-                    {query && <Clear className="searchCross" />}
+                    {query && <Clear className="searchCross"/>}
                 </form>
                 <Search
                 //search icon get hidden when clicked

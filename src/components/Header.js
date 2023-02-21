@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import React from "react";
 import axios from "../requests/axios";
 import requests from "../requests/requests";
+import { Dialog } from "@mui/material";
+import Details from "./Details";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
     const [movie, setMovie] = useState([]);
+    const [openDialog, setOpenDialog] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -16,6 +20,18 @@ function Header() {
         fetchData();
     }, []);
 
+    const MoreInfoClick = () => {
+        setOpenDialog(true);
+    }
+
+    const truncate = (input) =>
+        input?.length > 300 ? `${input.substring(0, 330)}..` : input;
+
+    const navigate = useNavigate();
+    const playClick = () => {
+        navigate(`/playing/${movie.media_type}/${movie.id}`);
+    }
+
     return (
         <header className="banner"
         style ={{
@@ -24,13 +40,22 @@ function Header() {
             <div className="banner__contents">
                 <h1 className="banner__title">{movie?.title || movie?.name || movie?.original_name}</h1>
                 <div className="banner__buttons">
-                    <button className="banner__button">Play</button>
-                    <button className="banner__button">My List</button>
+                    <button className="banner__button" onClick={playClick}>Play</button>
+                    <button className="banner__button" onClick={MoreInfoClick}>More info</button>
                 </div>
                 <h1 className="banner__description">
-                {movie?.overview}
+                    {truncate(movie?.overview)}
                 </h1>
             </div>
+            <Dialog
+                fullWidth={true}
+                open={openDialog}
+                onClose={() => {setOpenDialog(false);}}
+                scroll="body"
+                maxWidth="lg"
+                >
+                <Details className="movieDetails" movie={movie} mediaType = {movie.media_type} handleClose={() => {setOpenDialog(false);}}/>
+            </Dialog>
         </header>
     );
 }

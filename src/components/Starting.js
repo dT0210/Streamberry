@@ -8,11 +8,13 @@ function Starting() {
     return (
         <div className="main">
             <div className="nav">
-                <img 
-                    className="nav__logo"
-                    src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
-                    alt=""
-                />
+                <div className="nav__left">
+                    <img 
+                        className="nav__logo"
+                        src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
+                        alt=""
+                    />
+                </div>
                 <img 
                     className="nav__avatar"
                     src="http://pngimg.com/uploads/netflix/netflix_PNG8.png"
