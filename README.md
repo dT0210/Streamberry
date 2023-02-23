@@ -32,10 +32,10 @@ npm i
 https://drive.google.com/file/d/1DbN7jsktraTdloKXSXwp07b9dIIDVX24/view?usp=sharing&fbclid=IwAR36n3wBL6cIvUgr3RkdmBHD4sqd_ILpXLOcLcCAGM24u8Pbn94phFrQCZA
 ## Backend:
 
-- Api IMDB  
-- 2embred.org
+- TMDB API cho thông tin phim
+- 2embred.to cho video player
 
 ## Frontend:
 
-- Reactjs,Redux-toolkit
+- Reactjs
 - MUI
