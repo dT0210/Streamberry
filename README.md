@@ -29,6 +29,16 @@ npm i
 
 ## Features:
 
+Home screen:
+![image](https://user-images.githubusercontent.com/121219177/220873600-37a117a4-efc1-4d1d-a44b-e8c3053402f0.png)
+
+Search results:
+![image](https://user-images.githubusercontent.com/121219177/220873932-ec070943-500c-4a6d-8ef8-dbe683af99fb.png)
+
+Movie details:
+![image](https://user-images.githubusercontent.com/121219177/220874132-a065d36a-812b-40a2-9470-8c00cf2e558d.png)
+
+
 https://drive.google.com/file/d/1DbN7jsktraTdloKXSXwp07b9dIIDVX24/view?usp=sharing&fbclid=IwAR36n3wBL6cIvUgr3RkdmBHD4sqd_ILpXLOcLcCAGM24u8Pbn94phFrQCZA
 ## Backend:
 
