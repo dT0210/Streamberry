@@ -47,5 +47,5 @@ https://drive.google.com/file/d/1DbN7jsktraTdloKXSXwp07b9dIIDVX24/view?usp=shari
 
 ## Frontend:
 
-- Reactjs
+- ReactJs, CSS
 - MUI
