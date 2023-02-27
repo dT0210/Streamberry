@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import "./Starting.css";
+import "../Nav/Nav.css";
 
 function Starting() {
     const navigate = useNavigate();
@@ -23,7 +25,7 @@ function Starting() {
             </div>
             <div className="starting-body">
                 <h1>WATCH YOUR FAVORITE MOVIES AND TV SHOWS</h1>
-                <button className="starting-body__watch-btn" onClick={btnClicked}>Watch now</button>
+                <button className="starting-body__watch-button" onClick={btnClicked}>Watch now</button>
             </div>            
         </div>
     );

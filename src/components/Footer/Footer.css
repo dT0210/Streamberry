@@ -1,0 +1,27 @@
+.footer {
+    background-color: #000000be;
+    color: white;
+    margin-top: 20px;
+    height: 150px;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+.footer h1 {
+width: 25%;
+margin-top: auto;
+margin-bottom: auto;
+margin-left: 15px;
+}
+
+.footer a {
+margin-top: auto;
+margin-bottom: auto;
+}
+
+.credits {
+width: 20%;
+margin-top: auto;
+margin-bottom: auto;
+}

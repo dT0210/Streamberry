@@ -4,10 +4,10 @@ import {
   Route
 } from 'react-router-dom';
 
-import Home from "./components/Home";
-import Starting from './components/Starting';
-import SearchResult from './components/SearchResult';
-import Player from './components/Player';
+import Home from "./components/Home/Home";
+import Starting from './components/Starting/Starting';
+import SearchResult from './components/SearchResult/SearchResult';
+import Player from './components/Player/Player';
 
 function App() {
   return (
@@ -17,8 +17,7 @@ function App() {
         <Route path="/home" element = {<Home/>}/> 
         <Route path="/home/:param" element = {<Home/>}/>
         <Route path="/search/:query" element = {<SearchResult/>}/>
-        <Route path="/watching/movie/:movieId" element = {<Player/>}/>
-        <Route path="/watching/tv/:movieId" element = {<Player/>}/>
+        <Route path="/watching/:type/:movieId" element = {<Player/>}/>
       </Routes>
     </Router>
   );

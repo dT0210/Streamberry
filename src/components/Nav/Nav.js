@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { Search } from "@mui/icons-material";
 import { Clear } from "@mui/icons-material";
+import "./Nav.css";
 
 function Nav() {
     const [query, setQuery] = useState("");

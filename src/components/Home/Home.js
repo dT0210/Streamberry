@@ -1,9 +1,10 @@
-import Nav from "./Nav";
-import Header from "./Header";
-import Row from "./Row";
-import requests from "../requests/requests";
+import Nav from "../Nav/Nav";
+import Header from "../Header/Header";
+import Row from "../Row/Row";
+import requests from "../../requests/requests";
 import { useParams } from "react-router-dom";
-import Footer from "./Footer";
+import Footer from "../Footer/Footer";
+import "./Home.css"
 
 function Home() {
     const {param} = useParams();

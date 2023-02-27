@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import axios from "../requests/axios";
-import requests from "../requests/requests";
+import axios from "../../requests/axios";
+import requests from "../../requests/requests";
 import { Dialog } from "@mui/material";
-import Details from "./Details";
+import Details from "../Details/Details";
 import { useNavigate } from "react-router-dom";
+import "./Header.css";
 
 function Header() {
     const [movie, setMovie] = useState([]);
@@ -29,7 +30,7 @@ function Header() {
 
     const navigate = useNavigate();
     const playClick = () => {
-        navigate(`/playing/${movie.media_type}/${movie.id}`);
+        navigate(`/watching/${movie.media_type}/${movie.id}`);
     }
 
     return (
@@ -54,7 +55,7 @@ function Header() {
                 scroll="body"
                 maxWidth="lg"
                 >
-                <Details className="movieDetails" movie={movie} mediaType = {movie.media_type} handleClose={() => {setOpenDialog(false);}}/>
+                <Details movie={movie} mediaType = {movie.media_type} handleClose={() => {setOpenDialog(false);}}/>
             </Dialog>
         </header>
     );

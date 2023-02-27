@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import requests from "../requests/requests";
-import Nav from "./Nav";
-import Row from "./Row";
-import ax from "../requests/axios"
+import requests from "../../requests/requests";
+import Nav from "../Nav/Nav";
+import Row from "../Row/Row";
+import ax from "../../requests/axios"
 import axios from "axios";
+import "./SearchResult.css"
 
 function SearchResult() {
     const {query} = useParams();
@@ -18,11 +19,11 @@ function SearchResult() {
         async function fetchData() {
             await axios.all([
                 ax.get(`${requests.fetchSearchResult}${query}&page=1`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=1`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=2`, {cancelToken: source.token}),
                 ax.get(`${requests.fetchSearchResult}${query}&page=2`, {cancelToken: source.token}),
                 ax.get(`${requests.fetchSearchResult}${query}&page=3`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=3`, {cancelToken: source.token}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=4`, {cancelToken: source.token}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=5`, {cancelToken: source.token}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=6`, {cancelToken: source.token}),
             ]).then(axios.spread(
                 (request1, request2, request3, request4, request5, request6) => {
                     if (

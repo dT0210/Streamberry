@@ -1,0 +1,124 @@
+.nav {
+    background: #111;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: fixed;
+    transition: all 0.5s;
+    transition-timing-function: ease-in;
+    width: 100%;
+    z-index: 999;
+    top: 0;
+}
+
+.nav__black {
+    background-color: #111;
+}
+
+.nav__left {
+    display: flex;
+    align-items: center;
+    flex: 1 1;
+    gap: 2rem;
+    color: #d6cccc;
+}
+
+.nav__logo {
+    left: 20px;
+    width: 80px;
+    cursor: pointer;
+}
+
+.nav__home:hover,
+.nav__movies:hover,
+.nav__shows:hover {
+    cursor: pointer;
+    color: rgb(160, 159, 159)
+}
+
+.nav__right {
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s;
+    padding-right: 30px;
+    transition: all 0.4s;
+}
+
+.nav .MuiSvgIcon-root {
+    color: white;
+    font-size: 1.7rem;
+}
+.nav__right .MuiSvgIcon-root {
+    margin: auto 7px;
+    cursor: pointer;
+}
+
+.nav__right form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-right: -26px;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.nav__right form > input {
+    background-color: black;
+    outline: none;
+    font-size: 0.95rem;
+    padding: 7px 40px;
+    width: 240px;
+    border-radius: 2px;
+    border: 1.6px solid white;
+    line-height: 1;
+    color: white;
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    text-decoration: none;
+}
+
+.searchCross {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    font-size: 1.4rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+}
+
+.searchIcon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    color: #e5e5e5;
+    -webkit-animation: zoomAnimation 0.6s;
+    animation: zoomAnimation 0.6s;
+    transition: all 0.5s !important;
+    font-size: 1.4rem !important;
+}
+
+.nav .showSearch {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.nav__avatar {
+    right: 20px;
+    width: 30px;
+}
+
+#Search::-webkit-search-cancel-button {
+    display: none;
+}
