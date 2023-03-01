@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
@@ -11,21 +11,6 @@ function Nav() {
     const [showSearch, setShowSearch] = useState(false);
     const inputField = useRef(null);
     const navigate = useNavigate();
-    const logoClicked = () => {
-        navigate('/', {replace: true});   
-    } 
-
-    const homeClicked = () => {
-        navigate('/home', {replace: true});
-    }
-
-    const moviesClicked = () => {
-        navigate('/home/movies', {replace: true});
-    }
-
-    const tvshowsClicked = () => {
-        navigate('/home/tv', {replace: true});
-    }
 
     const location = useLocation();
 
@@ -35,24 +20,36 @@ function Nav() {
         setQuery("");
     }
 
+    const linkStyle = {
+        color: "#d6cccc",
+        textDecoration: "none"
+    }
+
     return (
         <div className="nav false">
             <div className="nav__left">
-                <img 
-                    className="nav__logo"
-                    src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
-                    alt=""
-                    onClick={logoClicked}
-                />
-                <span className="nav__home"
-                    style={location.pathname === '/home' ? {color: "white"} : {}}
-                    onClick={homeClicked}>Home</span>
-                <span className="nav__movies"
-                    style={location.pathname === '/home/movies' ? {color: "white"} : {}}
-                    onClick={moviesClicked}>Movies</span>
-                <span className="nav__shows"
-                    style={location.pathname === '/home/tv' ? {color: "white"} : {}}
-                    onClick={tvshowsClicked}>TV Shows</span>
+                <Link to="/">
+                    <img 
+                        className="nav__logo"
+                        src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
+                        alt=""
+                    />
+                </Link>
+                <Link to="/home" style={linkStyle}>
+                    <span className="nav__home"
+                        style={location.pathname === '/home' ? {color: "white"} : {}}
+                        >Home</span>
+                </Link>
+                <Link to="/home/movies" style={linkStyle}>
+                    <span className="nav__movies"
+                        style={location.pathname === '/home/movies' ? {color: "white"} : {}}
+                        >Movies</span>
+                </Link>
+                <Link to="/home/tv" style={linkStyle}>
+                    <span className="nav__shows"
+                        style={location.pathname === '/home/tv' ? {color: "white"} : {}}
+                        >TV Shows</span>
+                </Link>
             </div>
             <div className="nav__right">
                 <form

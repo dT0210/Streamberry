@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from "../../requests/axios";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Details.css";
 import { useRef } from "react";
 
@@ -15,7 +15,7 @@ function Details(props) {
     const [movieCast, setMovieCast] = useState();
     const [movieDirector, setMovieDirector] = useState();
     const [details, setDetails] = useState();
-    const [tvSeason, setTvSeason] = useState();
+    const [tvSeason, setTvSeason] = useState(1);
     const [episodes, setEpisodes] = useState();
 
     const ref = useRef(null);
@@ -26,27 +26,22 @@ function Details(props) {
     else
         type = props.mediaType;
 
-    const creditsURL = `/${type}/${movie.id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`;
-    const detailsURL = `/${type}/${movie.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`;
+    const detailsURL = `/${type}/${movie.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&append_to_response=credits`;
 
     useEffect(() => {
-        async function fetchCredits() {
-            const request = await axios.get(creditsURL);
-            setMovieDirector(request.data.crew.find(person => {
-                return person.job === "Director";
-            }));
-            setMovieCast(request.data.cast);
-        }
-
         async function fetchDetails() {
             const request = await axios.get(detailsURL);
             setDetails(request.data);
-            setTvSeason(request.data.seasons[0].season_number);
+            setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
+            setMovieDirector(request.data.credits.crew.find(person => {
+                return person.job === "Director";
+            }));
+            
         }
-        
-        fetchCredits();
         fetchDetails();
-    }, [creditsURL, detailsURL])
+        setTvSeason(details?.seasons[0]?.season_number);
+    }, [detailsURL]);
+    console.log(tvSeason);
 
     useEffect(() => {
         async function fetchEpisodes() {
@@ -58,14 +53,17 @@ function Details(props) {
 
     const navigate = useNavigate();
     const playClick = () => {
-        ref.current?.scrollIntoView({behavior: 'smooth'});
+        if (type === 'tv')
+            ref.current?.scrollIntoView({behavior: 'smooth'});
+        else 
+            navigate(`/watching/movie/${movie.id}`);
     }
 
-    const seasonChange = (season) => {
-        setTvSeason(season);
-        console.log(season);
-    };
-    
+    const linkStyle = {
+        color: "white",
+        textDecoration: "none",
+        fontWeight: "bold"
+    }
     return (
         <div className="overlay" 
             style={{
@@ -75,57 +73,82 @@ function Details(props) {
                 backgroundSize: "cover",
                 backgroundPosition: " center center"
             }}>
+                <CancelIcon 
+                    onClick={handleClose}
+                    style={{
+                        cursor: "pointer",
+                        float: "right",
+                        position: "sticky",
+                        top: "10px",
+                        right: "10px"
+                    }}
+                />
                 <div className="description">
                     <div className="description__left">
                         <h1>{movie?.title || movie?.name || movie?.original_name}</h1>
                         <button className="overlay__button" onClick={()=>{playClick()}}>Play</button>
-                        <h3>Release Date: {movie?.release_date}</h3>
+                        <h3>{(type === 'movie') ? "Release Date: " + movie?.release_date : "First air date: " + details?.first_air_date}</h3>
                         <p>{truncate(movie?.overview, 300)}</p>
                     </div>
                     
                     <div className="description__right">
-                        <CancelIcon 
-                            onClick={handleClose}
-                            style={{
-                                cursor: "pointer",
-                                float: "right",
-                                marginTop: "10px"
-                            }}
-                        />
-                        {(movieCast !== undefined) && (details !== undefined) && (
-                            <div style={{
-                            marginTop: "150px"
-                            }}>
-                                {(type === "movie") && (
-                                    <p>Director: <span>{movieDirector.name}</span></p>
-                                )}
-                                
-                                {(type === "tv") && (
-                                    <p>Created by: {details.created_by.map((creator) => (<span>{creator.name}, </span>))}</p>
-                                )}
-                                <p>Cast: <span>{movieCast[0]?.name}, {movieCast[1]?.name}, {movieCast[2]?.name}</span></p>
-                                <p>Genres: {details.genres.map((genre) => (<span>{genre.name}, </span>))}</p> 
-                            </div>
-                        )}
+                        <div style={{
+                        marginTop: "150px"
+                        }}>
+                            {(type === "movie") && (
+                                <p>Director: &nbsp;<Link to={`/person/${movieDirector?.id}`} style={linkStyle}>{movieDirector?.name}</Link></p>
+                            )}
+                            
+                            {(type === "tv") && (
+                                <p>Created by: {details?.created_by.map((creator) => (<span><Link to={`/person/${creator.id}`} style={linkStyle}>{creator.name}, </Link>&nbsp;</span>))}</p>
+                            )}
+                            <p>Genres: {details?.genres.map((genre) => (
+                                <span>
+                                    <Link to={`/genre/${genre.id}`} style={linkStyle}>
+                                        {genre.name}, 
+                                    </Link>
+                                    &nbsp;
+                                </span>
+                            ))}</p> 
+                        </div>
                     </div>
                 </div>
                 
-                {(type === 'tv') && (episodes !== undefined) && (
+                <div className="casts">
+                    <h2>Casts</h2>
+                    <div className="casts__list">
+                        {movieCast?.map((person) => (
+                            <div className="actor" onClick={()=>{navigate(`/person/${person.id}`)}}>
+                                <img
+                                    className="actor__profileImg"
+                                    src={`https://image.tmdb.org/t/p/original/${person.profile_path}`}
+                                    />
+                                <p>{person.name || person.original_name}</p>
+                                <p style={{
+                                    color: "#999999"
+                                }}>{person.character}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                {(type === 'tv') && (
                     <div className="tvEpisodes" ref={ref}>
                         <div className="seasonBox">
                             <h2>Episodes</h2>
-                            <select className="seasons" id="seasons" onChange={e => {seasonChange(e.target.value)}}>
+                            <select className="seasons" id="seasons" onChange={e => {setTvSeason(e.target.value)}}>
                                 {details?.seasons.map((season) => (<option value={season.season_number}>{season.name}</option>))}
                             </select>
                         </div>
                         <div className="episodeList">
-                            {episodes.map((episode) => (
-                                <div className="episode">
-                                    <img 
-                                        className="episode__img"
-                                        src={`https://image.tmdb.org/t/p/original/${episode?.still_path}`}
-                                        alt=""
-                                    />
+                            {episodes?.map((episode) => (
+                                <div className="episode" onClick={()=>{navigate(`/watching/tv/${movie.id}/${tvSeason}/${episode.episode_number}`);}}>
+                                    <h2>{episode.episode_number}</h2>
+                                    <div className="episode__img">
+                                        <img 
+                                            src={`https://image.tmdb.org/t/p/original/${episode?.still_path}`}
+                                            alt={`${episode.name}`}
+                                        />
+                                    </div>
                                     <div className="episode__content">
                                         <h3>{episode.name}</h3>
                                         <p>{truncate(episode.overview, 200)}</p>

@@ -15,8 +15,8 @@ function Row(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(fetchURL);
-      setMovies(request.data.results);
+      const request = await axios.get(fetchURL).then();
+      setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
       return request;
     }
     if (!isSearch){
@@ -32,18 +32,20 @@ function Row(props) {
   }
 
   return (
-    <div className="row" style={{display: (movies.length === 0) && "none"}}>
+    <>
+    {(movies !== undefined) && (
+    <div className="row" style={{display: (movies === undefined || movies.length === 0) && "none"}}>
       <h2>{title}</h2>
-        <div className="row__posters">
-          {movies.map((movie) => (
-              <img
-                key={movie.id}
-                className="row__poster row__posterLarge"
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                alt={movie.original_name}
-                onClick={()=>{movieClick(movie)}}
-              />
-          ))}
+      <div className="row__posters">
+        {movies.map((movie) => (
+            <img
+              key={movie.id}
+              className="row__poster row__posterLarge"
+              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+              alt={movie.original_name}
+              onClick={()=>{movieClick(movie)}}
+            />
+        ))}
       </div>
       <Dialog
         fullWidth={true}
@@ -55,7 +57,8 @@ function Row(props) {
           <Details movie={movieDetails} mediaType = {mediaType} handleClose={() => {setOpenDialog(false);}}/>
       </Dialog>
     </div>
-    
+    )}
+    </>
   );
 }
   

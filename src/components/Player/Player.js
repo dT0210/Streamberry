@@ -4,15 +4,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import "./Player.css";
 
 function Player() {
-    const {type, movieId} = useParams();
+    const {type, movieId, season, episode} = useParams();
     var URL = "";
 
     const navigate = useNavigate();
 
     if (type === 'tv')
-        URL = `https://www.2embed.to/embed/tmdb/tv?id=${movieId}&s=1&e=1`
+        URL = `https://www.2embed.to/embed/tmdb/tv?id=${movieId}&s=${season}&e=${episode}`;
     else
-        URL = `https://www.2embed.to/embed/tmdb/movie?id=${movieId}`
+        URL = `https://www.2embed.to/embed/tmdb/movie?id=${movieId}`;
     return (
         <div className="player">
             <ArrowBackIcon className="backButton" onClick={()=>{navigate(-1)}}/>

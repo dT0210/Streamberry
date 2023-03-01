@@ -36,7 +36,9 @@ function Header() {
     return (
         <header className="banner"
         style ={{
-            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`
+            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            backgroundBlendMode: "overlay",
         }}>
             <div className="banner__contents">
                 <h1 className="banner__title">{movie?.title || movie?.name || movie?.original_name}</h1>

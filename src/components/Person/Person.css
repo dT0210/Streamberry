@@ -1,0 +1,46 @@
+.person {
+    color: rgb(216, 216, 216);
+    margin-top: 65px;
+}
+
+.overview {
+    display: flex;
+    margin: 60px;
+}
+
+.referenceList {
+    margin-top: 30px;
+    padding-right: 10px;
+    background-color: rgb(92, 92, 92, 0.5);
+    border-radius: 0.5vw;
+}
+
+.overview__left {
+    width: 30%;
+    margin-right: 30px;
+}
+
+.personImage {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.personalInfo p, h3 {
+    margin-bottom: 20px;
+}
+
+.overview__right h1 {
+    margin-bottom: 30px;
+}
+
+.overview__right h4 {
+    margin-bottom: 10px;
+}
+
+.overview__right p {
+    font-size: larger;
+}
+
+.overview__right {
+    max-width: 80%;
+}
