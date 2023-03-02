@@ -44,7 +44,6 @@ Actor details:
 ![image](https://user-images.githubusercontent.com/121219177/222369158-f729a8e3-3a3b-44ce-bd8c-2b9ad5ce5f19.png)
 
 
-https://drive.google.com/file/d/1DbN7jsktraTdloKXSXwp07b9dIIDVX24/view?usp=sharing&fbclid=IwAR36n3wBL6cIvUgr3RkdmBHD4sqd_ILpXLOcLcCAGM24u8Pbn94phFrQCZA
 ## Backend:
 
 - TMDB API cho thông tin phim
