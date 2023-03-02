@@ -36,7 +36,12 @@ Search results:
 ![image](https://user-images.githubusercontent.com/121219177/220873932-ec070943-500c-4a6d-8ef8-dbe683af99fb.png)
 
 Movie details:
-![image](https://user-images.githubusercontent.com/121219177/220874132-a065d36a-812b-40a2-9470-8c00cf2e558d.png)
+![image](https://user-images.githubusercontent.com/121219177/222368861-df685f10-b67d-47f3-9bff-59af01e32a3a.png)
+
+![image](https://user-images.githubusercontent.com/121219177/222368993-5c8608b7-d2f9-4367-82e0-43ee832b3cbe.png)
+
+Actor details:
+![image](https://user-images.githubusercontent.com/121219177/222369158-f729a8e3-3a3b-44ce-bd8c-2b9ad5ce5f19.png)
 
 
 https://drive.google.com/file/d/1DbN7jsktraTdloKXSXwp07b9dIIDVX24/view?usp=sharing&fbclid=IwAR36n3wBL6cIvUgr3RkdmBHD4sqd_ILpXLOcLcCAGM24u8Pbn94phFrQCZA
