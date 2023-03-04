@@ -47,7 +47,7 @@ Actor details:
 ## Backend:
 
 - TMDB API cho thông tin phim
-- 2embred.to cho video player
+- 2embed.to cho video player
 
 ## Frontend:
 
