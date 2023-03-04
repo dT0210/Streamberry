@@ -17,7 +17,7 @@ function Row(props) {
     const controller = new AbortController();
     async function fetchData() {
       await axios.get(fetchURL, {signal: controller.signal}).then((request) => {
-          setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
+          setMovies((request.data.results || request.data.cast).filter((movie)=> movie?.poster_path && movie?.backdrop_path));
       });
     }
     if (!isSearch){

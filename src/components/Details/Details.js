@@ -45,7 +45,7 @@ function Details(props) {
         return () => {
             controller.abort();
         }
-    }, [detailsURL]);
+    }, [type, detailsURL]);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -59,7 +59,7 @@ function Details(props) {
         return () => {
             controller.abort();
         }
-    }, [tvSeason])
+    }, [type, movie.id, tvSeason])
 
     const navigate = useNavigate();
     const playClick = () => {
@@ -97,7 +97,15 @@ function Details(props) {
                     <div className="description__left">
                         <h1>{movie?.title || movie?.name || movie?.original_name}</h1>
                         <button className="overlay__button" onClick={()=>{playClick()}}>Play</button>
-                        <h3>{(type === 'movie') ? "Release Date: " + movie?.release_date : "First air date: " + details?.first_air_date}</h3>
+                        {(type === 'movie') && (
+                            <h3>
+                                <span>Release date: {movie?.release_date}</span>
+                                <span style={{float: "right"}}>{details?.runtime/60 >> 0}h {details?.runtime%60}m</span>
+                            </h3>
+                        )}   
+                        {(type === 'tv') && (
+                            <h3>First air date: {details?.first_air_date}</h3>
+                        )}
                         <p>{truncate(movie?.overview, 300)}</p>
                     </div>
                     
@@ -135,11 +143,10 @@ function Details(props) {
                                 <img
                                     className="actor__profileImg"
                                     src={`https://image.tmdb.org/t/p/original/${person.profile_path}`}
-                                    />
+                                    alt=""
+                                />
                                 <p>{person.name || person.original_name}</p>
-                                <p style={{
-                                    color: "#999999"
-                                }}>{person.character}</p>
+                                <p className="silver">{person.character}</p>
                             </div>
                         ))}
                     </div>
@@ -163,10 +170,9 @@ function Details(props) {
                                         />
                                     </div>
                                     <div className="episode__content">
-                                        <h3>{episode.name}</h3>
-                                        <p>{truncate(episode.overview, 200)}</p>
+                                        <h4>{episode.name}</h4>
+                                        <p className="silver">{truncate(episode.overview, 200)}</p>
                                     </div>
-                                    
                                 </div>))}
                         </div>
                     </div>

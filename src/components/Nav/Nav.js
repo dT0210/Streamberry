@@ -20,11 +20,6 @@ function Nav() {
         setQuery("");
     }
 
-    const linkStyle = {
-        color: "#d6cccc",
-        textDecoration: "none"
-    }
-
     return (
         <div className="nav false">
             <div className="nav__left">
@@ -35,17 +30,17 @@ function Nav() {
                         alt=""
                     />
                 </Link>
-                <Link to="/home" style={linkStyle}>
+                <Link to="/home" className="link">
                     <span className="nav__home"
                         style={location.pathname === '/home' ? {color: "white"} : {}}
                         >Home</span>
                 </Link>
-                <Link to="/home/movies" style={linkStyle}>
+                <Link to="/home/movies" className="link">
                     <span className="nav__movies"
                         style={location.pathname === '/home/movies' ? {color: "white"} : {}}
                         >Movies</span>
                 </Link>
-                <Link to="/home/tv" style={linkStyle}>
+                <Link to="/home/tv" className="link">
                     <span className="nav__shows"
                         style={location.pathname === '/home/tv' ? {color: "white"} : {}}
                         >TV Shows</span>

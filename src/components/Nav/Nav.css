@@ -121,3 +121,8 @@
 #Search::-webkit-search-cancel-button {
     display: none;
 }
+
+.link {
+    color: #d6cccc;
+    text-decoration: none;
+}

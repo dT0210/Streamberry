@@ -116,7 +116,7 @@
 }
 
 .episodeList::-webkit-scrollbar-thumb {
-  background: #616161;
+  background: rgb(11,11,11, 0.7);
   border-radius: 1vw;
 }
 
