@@ -12,13 +12,19 @@ function Header() {
     const [openDialog, setOpenDialog] = useState(false);
 
     useEffect(() => {
+        let isCancelled = false;
         async function fetchData() {
-            const request = await axios.get(requests.fetchTrending); 
-            setMovie(
-                request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]
-            );
+            await axios.get(requests.fetchTrending).then((request) => {
+                if (!isCancelled)
+                {
+                    setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
+                }
+            }); 
         }
         fetchData();
+        return () => {
+            isCancelled = true;
+        }
     }, []);
 
     const MoreInfoClick = () => {
@@ -30,7 +36,7 @@ function Header() {
 
     const navigate = useNavigate();
     const playClick = () => {
-        navigate(`/watching/${movie.media_type}/${movie.id}`);
+        navigate(`/watching/${movie?.media_type}/${movie.id}`);
     }
 
     return (
@@ -57,7 +63,7 @@ function Header() {
                 scroll="body"
                 maxWidth="lg"
                 >
-                <Details movie={movie} mediaType = {movie.media_type} handleClose={() => {setOpenDialog(false);}}/>
+                <Details movie={movie} mediaType = {movie?.media_type} handleClose={() => {setOpenDialog(false);}}/>
             </Dialog>
         </header>
     );

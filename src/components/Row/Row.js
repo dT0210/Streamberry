@@ -14,15 +14,21 @@ function Row(props) {
   const { title, fetchURL, mediaType, isSearch, SearchResult } = props;
 
   useEffect(() => {
+    let isCancelled = false;
     async function fetchData() {
-      const request = await axios.get(fetchURL).then();
-      setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
-      return request;
+      await axios.get(fetchURL).then((request) => {
+        if (!isCancelled) {
+          setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
+        }
+      });
     }
     if (!isSearch){
       fetchData();
     } else {
       setMovies(SearchResult);
+    }
+    return () => {
+      isCancelled = true;
     }
   }, [fetchURL, isSearch, SearchResult]);
 

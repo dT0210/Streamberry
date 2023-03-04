@@ -1,7 +1,6 @@
 import Nav from "../Nav/Nav";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import requests from "../../requests/requests";
 import axios from "../../requests/axios"
 import { useEffect } from "react";
 import "./Person.css";
@@ -12,15 +11,20 @@ function Person() {
     const [details, setDetails] = useState();
     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
     const URL = `/person/${personId}?api_key=${API_KEY}&language=en-US`;
-    //&append_to_response=movie_credits%2Ctv_credits
 
     useEffect(() => {
+        let isCancelled = false;
         async function fetchDetails() {
-            const request = await axios.get(URL);
-            setDetails(request.data);
-            return request;
+            await axios.get(URL).then((request) => {
+                if (!isCancelled) {
+                    setDetails(request.data);
+                }
+            });
         }
         fetchDetails();
+        return () => {
+            isCancelled = true;
+        }
     }, [URL]);
 
     return (

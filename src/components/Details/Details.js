@@ -29,19 +29,30 @@ function Details(props) {
     const detailsURL = `/${type}/${movie.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&append_to_response=credits`;
 
     useEffect(() => {
+        let isCancelled = false;
         async function fetchDetails() {
-            const request = await axios.get(detailsURL);
-            setDetails(request.data);
-            setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
-            setMovieDirector(request.data.credits.crew.find(person => {
-                return person.job === "Director";
-            }));
-            
+            await axios.get(detailsURL).then((request) => {
+                if (!isCancelled)
+                {
+                    setDetails(request.data);
+                    setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
+                    setMovieDirector(request.data.credits.crew.find(person => {
+                        return person.job === "Director";
+                    }));
+                    if (type === 'tv')
+                    {
+                        setTvSeason(request.data.seasons[0]?.season_number);
+                    }
+                }
+            });
         }
         fetchDetails();
-        setTvSeason(details?.seasons[0]?.season_number);
-    }, [detailsURL]);
-    console.log(tvSeason);
+        console.log(tvSeason);
+        return () => {
+            isCancelled = true;
+        }
+    }, []);
+    
 
     useEffect(() => {
         async function fetchEpisodes() {
@@ -87,7 +98,15 @@ function Details(props) {
                     <div className="description__left">
                         <h1>{movie?.title || movie?.name || movie?.original_name}</h1>
                         <button className="overlay__button" onClick={()=>{playClick()}}>Play</button>
-                        <h3>{(type === 'movie') ? "Release Date: " + movie?.release_date : "First air date: " + details?.first_air_date}</h3>
+                        {(type === 'movie') && (
+                            <>
+                                <h3>Release Date: {movie?.release_date}</h3>
+                                <h4>Runtime: {details?.runtime/60 >> 0}h{details?.runtime%60}m</h4>
+                            </>
+                        )}
+                        {(type === 'tv') && (
+                            <h3>First air date: {details?.first_air_date}</h3>
+                        )}
                         <p>{truncate(movie?.overview, 300)}</p>
                     </div>
                     
@@ -118,7 +137,10 @@ function Details(props) {
                     <h2>Casts</h2>
                     <div className="casts__list">
                         {movieCast?.map((person) => (
-                            <div className="actor" onClick={()=>{navigate(`/person/${person.id}`)}}>
+                            <div className="actor" onClick={()=>{
+                                    handleClose();
+                                    navigate(`/person/${person.id}`)
+                                }}>
                                 <img
                                     className="actor__profileImg"
                                     src={`https://image.tmdb.org/t/p/original/${person.profile_path}`}
@@ -135,7 +157,7 @@ function Details(props) {
                     <div className="tvEpisodes" ref={ref}>
                         <div className="seasonBox">
                             <h2>Episodes</h2>
-                            <select className="seasons" id="seasons" onChange={e => {setTvSeason(e.target.value)}}>
+                            <select className="seasons" id="seasons" defaultValue={1} onChange={e => {setTvSeason(e.target.value)}}>
                                 {details?.seasons.map((season) => (<option value={season.season_number}>{season.name}</option>))}
                             </select>
                         </div>
