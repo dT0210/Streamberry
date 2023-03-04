@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../../requests/axios";
+import Ax from "axios";
 import { Dialog } from "@mui/material";
 import Details from "../Details/Details";
 import "./Row.css";
@@ -14,15 +15,19 @@ function Row(props) {
   const { title, fetchURL, mediaType, isSearch, SearchResult } = props;
 
   useEffect(() => {
+    const source = Ax.CancelToken.source();
     async function fetchData() {
-      const request = await axios.get(fetchURL).then();
-      setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
-      return request;
+      await axios.get(fetchURL, {cancelToken: source.token}).then((request) => {
+          setMovies((request.data.results || request.data.cast).filter((movie)=>movie?.poster_path));
+      });
     }
     if (!isSearch){
       fetchData();
     } else {
       setMovies(SearchResult);
+    }
+    return () => {
+      source.cancel();
     }
   }, [fetchURL, isSearch, SearchResult]);
 

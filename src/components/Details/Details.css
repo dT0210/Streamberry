@@ -27,11 +27,6 @@
   font-size: 50px;
 }
 
-.description__left h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
 .description__left p {
   font-size: larger;
 }
@@ -57,6 +52,7 @@
   margin-right: 1rem;
   outline: none;
   padding: 0.5rem 2rem;
+  margin-bottom: 30px;
 }
 
 .overlay__button:hover {

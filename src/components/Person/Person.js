@@ -1,8 +1,8 @@
 import Nav from "../Nav/Nav";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import requests from "../../requests/requests";
 import axios from "../../requests/axios"
+import Ax from "axios";
 import { useEffect } from "react";
 import "./Person.css";
 import Row from "../Row/Row"
@@ -15,12 +15,16 @@ function Person() {
     //&append_to_response=movie_credits%2Ctv_credits
 
     useEffect(() => {
+        const source = Ax.CancelToken.source();
         async function fetchDetails() {
-            const request = await axios.get(URL);
-            setDetails(request.data);
-            return request;
+            await axios.get(URL, {cancelToken: source.token}).then((request) => {
+                    setDetails(request.data);
+            });
         }
         fetchDetails();
+        return () => {
+            source.cancel();
+        }
     }, [URL]);
 
     return (

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from "../../requests/axios";
-import { useEffect } from "react";
+import Ax from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "./Details.css";
-import { useRef } from "react";
 
 function Details(props) {
     const movie = props.movie;
@@ -20,7 +19,7 @@ function Details(props) {
 
     const ref = useRef(null);
 
-    let type;
+    var type;
     if (props.mediaType === "")
         type = movie.media_type;
     else
@@ -29,27 +28,39 @@ function Details(props) {
     const detailsURL = `/${type}/${movie.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&append_to_response=credits`;
 
     useEffect(() => {
+        const source = Ax.CancelToken.source();
         async function fetchDetails() {
-            const request = await axios.get(detailsURL);
-            setDetails(request.data);
-            setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
-            setMovieDirector(request.data.credits.crew.find(person => {
-                return person.job === "Director";
-            }));
-            
+            await axios.get(detailsURL, {cancelToken: source.token}).then((request) => {
+                setDetails(request.data);
+                setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
+                setMovieDirector(request.data.credits.crew.find(person => {
+                    return person.job === "Director";
+                }));
+                if (type === 'tv')
+                {
+                    setTvSeason(request.data.seasons[0]?.season_number);
+                }
+            });
         }
         fetchDetails();
-        setTvSeason(details?.seasons[0]?.season_number);
+        return () => {
+            source.cancel();
+        }
     }, [detailsURL]);
-    console.log(tvSeason);
 
     useEffect(() => {
+        const source = Ax.CancelToken.source();
         async function fetchEpisodes() {
-            const request = await axios.get(`/${type}/${movie.id}/season/${tvSeason}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`);
-            setEpisodes(request.data.episodes);
+            await axios.get(`/${type}/${movie.id}/season/${tvSeason}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`, {cancelToken: source.token})
+            .then((request) => {
+                setEpisodes(request.data.episodes);
+            })
         }
         fetchEpisodes();
-    }, [type, movie.id, tvSeason])
+        return () => {
+            source.cancel();
+        }
+    }, [tvSeason])
 
     const navigate = useNavigate();
     const playClick = () => {
@@ -87,7 +98,15 @@ function Details(props) {
                     <div className="description__left">
                         <h1>{movie?.title || movie?.name || movie?.original_name}</h1>
                         <button className="overlay__button" onClick={()=>{playClick()}}>Play</button>
-                        <h3>{(type === 'movie') ? "Release Date: " + movie?.release_date : "First air date: " + details?.first_air_date}</h3>
+                        {(type === 'movie') && (
+                            <>
+                            <h3>Release Date: {movie?.release_date}</h3>
+                            <h3>Runtime: {details?.runtime/60 | 0}h{details?.runtime%60}m</h3>
+                            </>
+                        )}
+                        {(type === 'tv') && (
+                            <h3>First air date: {details?.first_air_date}</h3>
+                        )}
                         <p>{truncate(movie?.overview, 300)}</p>
                     </div>
                     
