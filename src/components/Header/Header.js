@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "../../requests/axios";
-import Ax from "axios";
 import requests from "../../requests/requests";
 import { Dialog } from "@mui/material";
 import Details from "../Details/Details";
@@ -13,15 +12,15 @@ function Header() {
     const [openDialog, setOpenDialog] = useState(false);
 
     useEffect(() => {
-        const source = Ax.CancelToken.source();
+        const controller = new AbortController();
         async function fetchData() {
-            await axios.get(requests.fetchTrending, {cancelToken: source.token}).then((request) => {
+            await axios.get(requests.fetchTrending, {signal: controller.signal}).then((request) => {
                     setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
             }); 
         }
         fetchData();
         return () => {
-            source.cancel();
+            controller.abort();
         }
     }, []);
 

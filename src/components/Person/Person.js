@@ -2,7 +2,6 @@ import Nav from "../Nav/Nav";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "../../requests/axios"
-import Ax from "axios";
 import { useEffect } from "react";
 import "./Person.css";
 import Row from "../Row/Row"
@@ -14,15 +13,15 @@ function Person() {
     const URL = `/person/${personId}?api_key=${API_KEY}&language=en-US`;
 
     useEffect(() => {
-        const source = Ax.CancelToken.source();
+        const controller = new AbortController();
         async function fetchDetails() {
-            await axios.get(URL, {cancelToken: source.token}).then((request) => {
+            await axios.get(URL, {signal: controller.signal}).then((request) => {
                     setDetails(request.data);
             });
         }
         fetchDetails();
         return () => {
-            source.cancel();
+            controller.abort();
         }
     }, [URL]);
 

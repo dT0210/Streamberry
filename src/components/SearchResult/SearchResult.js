@@ -14,16 +14,16 @@ function SearchResult() {
     const [noResultFound, setNoResultFound] = useState([false]);
     const chunk = 20;
     useEffect(() => {
-        const source = axios.CancelToken.source();
+        const controller = new AbortController();
 
         async function fetchData() {
             await axios.all([
-                ax.get(`${requests.fetchSearchResult}${query}&page=1`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=2`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=3`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=4`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=5`, {cancelToken: source.token}),
-                ax.get(`${requests.fetchSearchResult}${query}&page=6`, {cancelToken: source.token}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=1`, {signal: controller.signal}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=2`, {signal: controller.signal}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=3`, {signal: controller.signal}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=4`, {signal: controller.signal}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=5`, {signal: controller.signal}),
+                ax.get(`${requests.fetchSearchResult}${query}&page=6`, {signal: controller.signal}),
             ]).then(axios.spread(
                 (request1, request2, request3, request4, request5, request6) => {
                     if (
@@ -92,7 +92,7 @@ function SearchResult() {
         return () => {
             setNoResultFound(false);
             setSearchResultData([]);
-            source.cancel();
+            controller.abort();
         }
     }, [query]);
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from "../../requests/axios";
-import Ax from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "./Details.css";
 
@@ -28,9 +27,9 @@ function Details(props) {
     const detailsURL = `/${type}/${movie.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&append_to_response=credits`;
 
     useEffect(() => {
-        const source = Ax.CancelToken.source();
+        const controller = new AbortController();
         async function fetchDetails() {
-            await axios.get(detailsURL, {cancelToken: source.token}).then((request) => {
+            await axios.get(detailsURL, {signal: controller.signal}).then((request) => {
                 setDetails(request.data);
                 setMovieCast(request.data.credits.cast.filter((person) => person?.profile_path));
                 setMovieDirector(request.data.credits.crew.find(person => {
@@ -44,21 +43,21 @@ function Details(props) {
         }
         fetchDetails();
         return () => {
-            source.cancel();
+            controller.abort();
         }
     }, [detailsURL]);
 
     useEffect(() => {
-        const source = Ax.CancelToken.source();
+        const controller = new AbortController();
         async function fetchEpisodes() {
-            await axios.get(`/${type}/${movie.id}/season/${tvSeason}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`, {cancelToken: source.token})
+            await axios.get(`/${type}/${movie.id}/season/${tvSeason}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`, {signal: controller.signal})
             .then((request) => {
                 setEpisodes(request.data.episodes);
             })
         }
         fetchEpisodes();
         return () => {
-            source.cancel();
+            controller.abort();
         }
     }, [tvSeason])
 
