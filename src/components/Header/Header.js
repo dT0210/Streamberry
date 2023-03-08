@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import { React, useEffect, useState } from "react";
 import axios from "../../requests/axios";
 import requests from "../../requests/requests";
 import { Dialog } from "@mui/material";
 import Details from "../Details/Details";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import Loading from "../Loading/Loading";
 
 function Header() {
     const [movie, setMovie] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         const controller = new AbortController();
         async function fetchData() {
             await axios.get(requests.fetchTrending, {signal: controller.signal}).then((request) => {
                     setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
+            }).catch(() => {
+                console.log("Request Failed!");
             }); 
         }
         fetchData();
+        setLoading(false);
         return () => {
             controller.abort();
         }
@@ -35,13 +40,28 @@ function Header() {
     const playClick = () => {
         navigate(`/watching/${movie?.media_type}/${movie.id}`);
     }
+    if (loading) {
+        return (
+            <Loading
+                addStyle={{
+                position: "fixed",
+                top: "0",
+                right: "0",
+                bottom: "0",
+                left: "0",
+                zIndex: "99999",
+                }}
+            />
+        );
+    }
 
     return (
         <header className="banner"
         style ={{
-            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
-            backgroundColor: "rgba(0, 0, 0, 0.3)",
-            backgroundBlendMode: "overlay",
+            backgroundImage: `linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 1),
+                rgba(0, 0, 0, 0.45)),url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`
         }}>
             <div className="banner__contents">
                 <h1 className="banner__title">{movie?.title || movie?.name || movie?.original_name}</h1>

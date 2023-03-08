@@ -3,21 +3,24 @@ import axios from "../../requests/axios";
 import { Dialog } from "@mui/material";
 import Details from "../Details/Details";
 import "./Row.css";
+import Loading from "../Loading/Loading";
 
 function Row(props) {
   const [openDialog, setOpenDialog] = useState(false);
-
   const [movieDetails, setMovieDetails] = useState();
-
   const [movies, setMovies] = useState([]);
-
   const { title, fetchURL, mediaType, isSearch, SearchResult } = props;
+  const [loading, setLoading] = useState(true);
 
+  
   useEffect(() => {
+    setLoading(true);
     const controller = new AbortController();
     async function fetchData() {
       await axios.get(fetchURL, {signal: controller.signal}).then((request) => {
           setMovies((request.data.results || request.data.cast).filter((movie)=> movie?.poster_path && movie?.backdrop_path));
+      }).catch(() => {
+        console.log("Request Failed!");
       });
     }
     if (!isSearch){
@@ -25,6 +28,7 @@ function Row(props) {
     } else {
       setMovies(SearchResult);
     }
+    setLoading(false);
     return () => {
       controller.abort();
     }
@@ -35,10 +39,27 @@ function Row(props) {
     setMovieDetails(movie);
   }
 
+  if (movies?.length === 0) {
+    return <></>;
+  }
+
+  if (loading) {
+    return (
+      <Loading
+        addStyle={{
+          position: "fixed",
+          top: "0",
+          right: "0",
+          bottom: "0",
+          left: "0",
+          zIndex: "99999",
+        }}
+      />
+    );
+  }
+
   return (
-    <>
-    {(movies !== undefined) && (
-    <div className="row" style={{display: (movies === undefined || movies.length === 0) && "none"}}>
+    <div className="row">
       <h2>{title}</h2>
       <div className="row__posters">
         {movies.map((movie) => (
@@ -57,12 +78,10 @@ function Row(props) {
         onClose={() => {setOpenDialog(false);}}
         scroll="body"
         maxWidth="lg"
-        >
-          <Details movie={movieDetails} mediaType = {mediaType} handleClose={() => {setOpenDialog(false);}}/>
+      >
+        <Details movie={movieDetails} mediaType = {mediaType} handleClose={() => {setOpenDialog(false);}}/>
       </Dialog>
     </div>
-    )}
-    </>
   );
 }
   

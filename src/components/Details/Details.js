@@ -151,6 +151,7 @@ function Details(props) {
                                 {details?.seasons.map((season) => (<option value={season.season_number}>{season.name}</option>))}
                             </select>
                         </div>
+                        <div className="line" style={{marginTop: "50px"}}/>
                         <div className="episodeList">
                             {episodes?.map((episode) => (
                                 <div className="episode" onClick={()=>{navigate(`/watching/tv/${movie.id}/${tvSeason}/${episode.episode_number}`);}}>
