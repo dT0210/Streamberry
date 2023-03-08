@@ -69,11 +69,6 @@ function Details(props) {
             navigate(`/watching/movie/${movie.id}`);
     }
 
-    const linkStyle = {
-        color: "white",
-        textDecoration: "none",
-        fontWeight: "bold"
-    }
     return (
         <div className="overlay" 
             style={{
@@ -114,18 +109,18 @@ function Details(props) {
                         marginTop: "150px"
                         }}>
                             {(type === "movie") && (
-                                <p>Director: &nbsp;<Link to={`/person/${movieDirector?.id}`} style={linkStyle}>{movieDirector?.name}</Link></p>
+                                <p>Director: &nbsp;<Link to={`/person/${movieDirector?.id}`} className="link">{movieDirector?.name}</Link></p>
                             )}
                             
                             {(type === "tv") && (
-                                <p>Created by: {details?.created_by.map((creator) => (<span><Link to={`/person/${creator.id}`} style={linkStyle}>{creator.name}, </Link>&nbsp;</span>))}</p>
+                                <p>Created by: {details?.created_by?.map((creator) => (<span><Link to={`/person/${creator.id}`} className="link">{creator.name}</Link>,&nbsp;</span>))}</p>
                             )}
                             <p>Genres: {details?.genres.map((genre) => (
                                 <span>
-                                    <Link to={`/genre/${genre.id}`} style={linkStyle}>
-                                        {genre.name}, 
+                                    <Link to={`/genre/${genre.id}`} className="link">
+                                        {genre.name}
                                     </Link>
-                                    &nbsp;
+                                    ,&nbsp;
                                 </span>
                             ))}</p> 
                         </div>
@@ -136,10 +131,7 @@ function Details(props) {
                     <h2>Casts</h2>
                     <div className="casts__list">
                         {movieCast?.map((person) => (
-                            <div className="actor" onClick={()=>{
-                                    handleClose();
-                                    navigate(`/person/${person.id}`)
-                                }}>
+                            <Link to={`/person/${person.id}`} className="actor link">
                                 <img
                                     className="actor__profileImg"
                                     src={`https://image.tmdb.org/t/p/original/${person.profile_path}`}
@@ -147,7 +139,7 @@ function Details(props) {
                                 />
                                 <p>{person.name || person.original_name}</p>
                                 <p className="silver">{person.character}</p>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -155,7 +147,7 @@ function Details(props) {
                     <div className="tvEpisodes" ref={ref}>
                         <div className="seasonBox">
                             <h2>Episodes</h2>
-                            <select className="seasons" id="seasons" defaultValue={1} onChange={e => {setTvSeason(e.target.value)}}>
+                            <select className="dropdownBox" id="seasons" defaultValue={1} onChange={e => {setTvSeason(e.target.value)}}>
                                 {details?.seasons.map((season) => (<option value={season.season_number}>{season.name}</option>))}
                             </select>
                         </div>

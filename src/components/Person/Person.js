@@ -51,7 +51,7 @@ function Person() {
                     <div className="overview__right">
                         <h1>{details?.name}</h1>
                         <h4>Biography</h4>
-                        <p>{details?.biography}</p>
+                        <p>{(details?.biography.length === 0) ? "We don't have a biography for " + details?.name : details?.biography}</p>
                         <div className="referenceList">
                             <Row title="Movies" fetchURL={`person/${personId}/movie_credits?api_key=${API_KEY}&language=en-US`} mediaType="movie"/>
                             <Row title="TV Shows" fetchURL={`person/${personId}/tv_credits?api_key=${API_KEY}&language=en-US`} mediaType="tv"/>

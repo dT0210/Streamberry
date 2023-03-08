@@ -30,17 +30,17 @@ function Nav() {
                         alt=""
                     />
                 </Link>
-                <Link to="/home" className="link">
+                <Link to="/home" className="nav__link">
                     <span className="nav__home"
                         style={location.pathname === '/home' ? {color: "white"} : {}}
                         >Home</span>
                 </Link>
-                <Link to="/home/movies" className="link">
+                <Link to="/home/movies" className="nav__link">
                     <span className="nav__movies"
                         style={location.pathname === '/home/movies' ? {color: "white"} : {}}
                         >Movies</span>
                 </Link>
-                <Link to="/home/tv" className="link">
+                <Link to="/home/tv" className="nav__link">
                     <span className="nav__shows"
                         style={location.pathname === '/home/tv' ? {color: "white"} : {}}
                         >TV Shows</span>
