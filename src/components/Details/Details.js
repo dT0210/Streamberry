@@ -35,10 +35,6 @@ function Details(props) {
                 setMovieDirector(request.data.credits.crew.find(person => {
                     return person.job === "Director";
                 }));
-                if (type === 'tv')
-                {
-                    setTvSeason(request.data.seasons[0]?.season_number);
-                }
             });
         }
         fetchDetails();
@@ -148,7 +144,7 @@ function Details(props) {
                         <div className="seasonBox">
                             <h2>Episodes</h2>
                             <select className="dropdownBox" id="seasons" defaultValue={1} onChange={e => {setTvSeason(e.target.value)}}>
-                                {details?.seasons.map((season) => (<option value={season.season_number}>{season.name}</option>))}
+                                {details?.seasons.filter((season)=>{return season.season_number !==0;}).map((season) => (<option value={season.season_number}>{season.name}</option>))}
                             </select>
                         </div>
                         <div className="line" style={{marginTop: "50px"}}/>
@@ -167,6 +163,9 @@ function Details(props) {
                                         <p className="silver">{truncate(episode.overview, 200)}</p>
                                     </div>
                                 </div>))}
+                            {(episodes?.length === 0) && (
+                                <p>No episodes available.</p>
+                            )}
                         </div>
                     </div>
                 )}

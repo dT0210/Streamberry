@@ -5,7 +5,7 @@ function Footer() {
     return (
         <div className="footer">
             <h1>Software Engineering Project</h1>
-            <a href="https://github.com/dT0210/SoftwareEngineeringProject" target="_blank">
+            <a href="https://github.com/dT0210/SoftwareEngineeringProject" target="_blank" rel="noreferrer">
                 <img 
                     width="80px"
                     height="80px"
