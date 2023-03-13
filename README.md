@@ -53,3 +53,5 @@ Actor details:
 
 - ReactJs, CSS
 - MUI
+
+Demo: https://netflix-clone-bbc5c.web.app/
