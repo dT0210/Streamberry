@@ -3,7 +3,6 @@ import Header from "../Header/Header";
 import Row from "../Row/Row";
 import requests from "../../requests/requests";
 import { useParams } from "react-router-dom";
-import Footer from "../Footer/Footer";
 import "./Home.css"
 
 function Home() {
@@ -55,8 +54,6 @@ function Home() {
                     <Row title='Animation Movies' fetchURL={requests.fetchAnimationMovies} mediaType="movie"/>
                 </div>
             )}
-            <Footer/>
-            
         </div>
     );
 }
