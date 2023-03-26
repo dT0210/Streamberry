@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "netflix-clone-bbc5c"
-  }
+    "default": "watch-party-dt0210",
+    "watch-party": "watch-party-dt0210"
+  },
+  "targets": {},
+  "etags": {}
 }
