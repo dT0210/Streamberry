@@ -12,6 +12,8 @@ function Header() {
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const URL = (movie?.media_type === 'movie') ? `/watching/movie/${movie.id}` : `/watching/tv/${movie.id}/1/1`;
+
     useEffect(() => {
         setLoading(true);
         const controller = new AbortController();
@@ -38,7 +40,7 @@ function Header() {
 
     const navigate = useNavigate();
     const playClick = () => {
-        navigate(`/watching/${movie?.media_type}/${movie.id}`);
+        navigate(URL);
     }
     if (loading) {
         return (
