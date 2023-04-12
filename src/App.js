@@ -16,8 +16,8 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Starting/>}/>
-        <Route exact path="/home" element={<Home/>}/> 
-        <Route exact path="/home/:param" element={<Home/>}/>
+        <Route exact path="/browse" element={<Home/>}/> 
+        <Route exact path="/browse/:param" element={<Home/>}/>
         <Route exact path="/search/:query" element={<SearchResult/>}/>
         <Route exact path="/watching/:type/:movieId/:season?/:episode?" element={<Player/>}/>
         <Route exact path="/person/:personId" element={<Person/>}/>
