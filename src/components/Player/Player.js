@@ -73,7 +73,7 @@ function Player() {
                     <Select
                         styles={dropdownStyle}
                         id="episodes" 
-                        defaultValue={{value: '', label: 'Episodes'}}
+                        defaultValue={{value: '', label: 'Episode ' + episode}}
                         onChange={e => {changeEpisode(e.value)}}
                         options = {
                             episodes?.map((ep) => {
