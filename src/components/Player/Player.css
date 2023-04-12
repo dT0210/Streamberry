@@ -14,3 +14,10 @@
     cursor: pointer;
     font-size: 40px !important;
 }
+
+.episodes_list {
+    position: absolute;
+    z-index: 999;
+    top: 10px;
+    left: 650px;
+}

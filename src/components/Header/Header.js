@@ -38,7 +38,7 @@ function Header() {
 
     const navigate = useNavigate();
     const playClick = () => {
-        navigate(`/watching/${movie?.media_type}/${movie.id}`);
+        navigate((movie.type === 'movie') ? `/watching/movie/${movie.id}` : `/watching/tv/${movie.id}/1/1`);
     }
     if (loading) {
         return (
