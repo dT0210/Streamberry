@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState, useEffect } from "react";
 import axios from "../../requests/axios";
+import Select from "react-select";
 import "./Player.css";
 
 function Player() {
@@ -37,14 +38,54 @@ function Player() {
         navigate(`/watching/tv/${movieId}/${season}/${e}`)
     }
 
+    const dropdownStyle = {
+        control: base => ({
+            ...base,
+            background: "rgb(11,11,11, 0.7)",
+            borderColor: "white",
+            "&:hover": {}
+        }),
+        menu: base => ({
+            ...base,
+            borderRadius: 0,
+            color: 'rgb(216, 216, 216)',
+            marginTop: 0,
+            background: "rgb(20,20,20, 0.7)"
+        }),
+        option: base => ({
+            ...base,
+            backgroundColor: "",
+            "&:hover": {
+                background: "rgb(11,11,11)"
+            }
+        }),
+        singleValue: base => ({
+            ...base,
+            color: "white"
+        })
+    }
+
     return (
         <div className="player">
-            <ArrowBackIcon className="backButton" onClick={()=>{navigate(-1)}}/>
+            <ArrowBackIcon className="backButton" onClick={()=>{navigate('/browse')}}/>
             {(type === 'tv') && (
                 <div className="episodes_list">
-                    <select className="dropdownBox" id="episodes" defaultValue={episode} onChange={e => {changeEpisode(e.target.value)}}>
-                        {episodes?.map((episode) => (<option value={episode.episode_number}>Episode {episode.episode_number}. {episode.name}</option>))}
-                    </select>
+                    <Select
+                        styles={dropdownStyle}
+                        id="episodes" 
+                        defaultValue={{value: '', label: 'Episodes'}}
+                        onChange={e => {changeEpisode(e.value)}}
+                        options = {
+                            episodes?.map((ep) => {
+                                return {
+                                    value: ep.episode_number,
+                                    label: 'Episode ' + ep.episode_number + '. ' + ep.name
+                                };
+                            })
+                        }
+                        isSearchable={false}
+                    />
+                    
                 </div>
             )}
             <iframe

@@ -5,7 +5,7 @@ import "../Nav/Nav.css";
 function Starting() {
     const navigate = useNavigate();
     const btnClicked = () => {
-        navigate('/home', {replace: true});
+        navigate('/browse', {replace: true});
     }
     return (
         <div className="main">
