@@ -120,7 +120,7 @@ function SearchResult() {
     }
 
     return (
-        <>
+        <div className="app">
           <Nav />
           {noResultFound ? (
             <div className="searchResult noResultFound">
@@ -155,7 +155,7 @@ function SearchResult() {
               )}
             </div>
           )}
-        </>
+        </div>
       );
 }
 

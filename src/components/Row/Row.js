@@ -12,7 +12,6 @@ function Row(props) {
   const { title, fetchURL, mediaType, isSearch, SearchResult } = props;
   const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     setLoading(true);
     const controller = new AbortController();
@@ -35,6 +34,7 @@ function Row(props) {
   }, [fetchURL, isSearch, SearchResult]);
 
   const movieClick = (movie) => {
+    console.log(movie);
     setOpenDialog(true);
     setMovieDetails(movie);
   }
@@ -77,7 +77,7 @@ function Row(props) {
         open={openDialog}
         onClose={() => {setOpenDialog(false);}}
         scroll="body"
-        maxWidth="lg"
+        maxWidth="false"
       >
         <Details movie={movieDetails} mediaType = {mediaType} handleClose={() => {setOpenDialog(false);}}/>
       </Dialog>

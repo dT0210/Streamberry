@@ -12,10 +12,6 @@
     top: 0;
 }
 
-.nav__black {
-    background-color: #111;
-}
-
 .nav__left {
     display: flex;
     align-items: center;
@@ -125,4 +121,8 @@
 .nav__link {
     color: #d6cccc;
     text-decoration: none;
+}
+
+@media screen and (max-width: 414px) {
+    
 }

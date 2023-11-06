@@ -35,6 +35,8 @@ function Details(props) {
                 setMovieDirector(request.data.credits.crew.find(person => {
                     return person.job === "Director";
                 }));
+            }).catch(() => {
+                console.log("Details Request Failed!");
             });
         }
         fetchDetails();
@@ -42,7 +44,7 @@ function Details(props) {
             controller.abort();
         }
     }, [type, detailsURL]);
-
+    console.log(movie?.media_type);
     useEffect(() => {
         const controller = new AbortController();
         async function fetchEpisodes() {

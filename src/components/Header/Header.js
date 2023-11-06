@@ -17,9 +17,9 @@ function Header() {
         const controller = new AbortController();
         async function fetchData() {
             await axios.get(requests.fetchTrending, {signal: controller.signal}).then((request) => {
-                    setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
+                setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
             }).catch(() => {
-                console.log("Request Failed!");
+                console.log("Header Request Failed!");
             }); 
         }
         fetchData();
@@ -28,7 +28,6 @@ function Header() {
             controller.abort();
         }
     }, []);
-
     const MoreInfoClick = () => {
         setOpenDialog(true);
     }
@@ -38,7 +37,7 @@ function Header() {
 
     const navigate = useNavigate();
     const playClick = () => {
-        navigate((movie.type === 'movie') ? `/watching/movie/${movie.id}` : `/watching/tv/${movie.id}/1/1`);
+        navigate((movie.media_type === 'movie') ? `/watching/movie/${movie.id}` : `/watching/tv/${movie.id}/1/1`);
     }
     if (loading) {
         return (
@@ -55,8 +54,28 @@ function Header() {
         );
     }
 
+    const updateBanner = () => {
+        const banner = document.getElementById('banner');
+        const screenWidth = window.innerWidth;
+        const backgroundImage = `linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0.45)),url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`;
+        if (screenWidth <= 414) {
+            banner.style.backgroundImage = `linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0.2)),url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`;
+        } else {
+            banner.style.backgroundImage = backgroundImage;
+        }
+    }
+
+    window.addEventListener('load', updateBanner);
+    window.addEventListener('resize', updateBanner)
+
     return (
-        <header className="banner"
+        <header className="banner" id="banner"
         style ={{
             backgroundImage: `linear-gradient(
                 90deg,

@@ -13,10 +13,10 @@ function Player() {
     const navigate = useNavigate();
 
     if (type === 'tv')
-        URL = `https://www.2embed.to/embed/tmdb/tv?id=${movieId}&s=${season}&e=${episode}`;
+        URL = `https://multiembed.mov/directstream.php?video_id=${movieId}&tmdb=1&s=${season}&e=${episode}`;
     else
-        URL = `https://www.2embed.to/embed/tmdb/movie?id=${movieId}`;
-
+        URL = `https://multiembed.mov/directstream.php?video_id=${movieId}&tmdb=1`;
+    
     useEffect(() => {
         if (type === 'tv')
         {
@@ -33,7 +33,6 @@ function Player() {
             }
         }
     }, [type, movieId, season])
-
     const changeEpisode = (e) => {
         navigate(`/watching/tv/${movieId}/${season}/${e}`)
     }
@@ -89,7 +88,7 @@ function Player() {
                 </div>
             )}
             <iframe
-                title="myFrame"
+                title="player"
                 width="100%"
                 height="100%"
                 allowFullScreen="allowfullscreen"

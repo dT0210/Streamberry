@@ -1,6 +1,4 @@
 .overlay {
-  height: 500px;
-  width: 100%;
   color: #ffffff;
   overflow-y: scroll;
 }
@@ -61,13 +59,30 @@
   transition: all 0.2s;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1800px) {
+  .overlay {
+    height: 800px;
+    width:  100%;
+    overflow-y: scroll;
+  }
+}
+
+@media screen and (max-width: 1366px) {
 .overlay {
     height: 580px;
     width: 100%;
     overflow-y: scroll;
   }
 }
+
+@media screen and (max-width: 412px) {
+  .overlay {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+  }
+}
+
 
 .tvEpisodes {
   margin-left: 50px;

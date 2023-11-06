@@ -21,12 +21,12 @@ function Nav() {
     }
 
     return (
-        <div className="nav false">
+        <div className="nav">
             <div className="nav__left">
                 <Link to="/">
                     <img 
                         className="nav__logo"
-                        src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
+                        src="streamberry.png"
                         alt=""
                     />
                 </Link>
@@ -53,7 +53,6 @@ function Nav() {
                 >
                     <input
                         ref={inputField}
-                        //hide search field if not in focus and clear the text entered.
                         onBlur={() => {
                         setQuery("");
                         setShowSearch(false);
@@ -75,7 +74,6 @@ function Nav() {
                     {query && <Clear className="searchCross"/>}
                 </form>
                 <Search
-                //search icon get hidden when clicked
                     style={
                         !showSearch
                         ? { animation: "zoomAnimation 0.8s" }
@@ -89,7 +87,7 @@ function Nav() {
 
                 <img 
                 className="nav__avatar"
-                src="http://pngimg.com/uploads/netflix/netflix_PNG8.png"
+                src="streamberry_logo.png"
                 alt=""
                 />
             </div>

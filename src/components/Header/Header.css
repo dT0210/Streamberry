@@ -56,16 +56,6 @@
   transition: all 0.2s;
 }
 
-.banner--fadeBottom {
-  background-image: linear-gradient(
-    180deg,
-    transparent,
-    rgba(37, 37, 37, 0.61),
-    #111
-  );
-  height: 7.4rem;
-}
-
 @media screen and (max-width: 1050px) {
   .banner__title {
     font-size: 3rem;
@@ -95,12 +85,13 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 414px) {
   .banner {
     min-height: 300px;
+    background-position: center center;
   }
   .banner__contents {
-    padding-top: 180px;
+    padding-top: 280px;
   }
   .banner__title {
     font-size: 1.5rem;

@@ -13,13 +13,13 @@ function Starting() {
                 <div className="nav__left">
                     <img 
                         className="nav__logo"
-                        src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
+                        src="streamberry.png"
                         alt=""
                     />
                 </div>
                 <img 
                     className="nav__avatar"
-                    src="http://pngimg.com/uploads/netflix/netflix_PNG8.png"
+                    src="streamberry_logo.png"
                     alt=""
                 />
             </div>
