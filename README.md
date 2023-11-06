@@ -54,4 +54,4 @@ Actor details:
 - ReactJs, CSS
 - MUI
 
-Demo: https://netflix-clone-bbc5c.web.app/
+Demo: [https://watch-party-dt0210.web.app/](https://watch-party-dth0210.web.app/)
