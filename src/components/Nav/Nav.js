@@ -26,7 +26,7 @@ function Nav() {
                 <Link to="/">
                     <img 
                         className="nav__logo"
-                        src="streamberry.png"
+                        src="/streamberry.png"
                         alt=""
                     />
                 </Link>
