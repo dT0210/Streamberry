@@ -7,16 +7,26 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import Loading from "../Loading/Loading";
 
-function Header() {
+function Header(props) {
     const [movie, setMovie] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(true);
+    const {type} = props;
+
+    var request = "";
+
+    if (type === 'tv')
+        request = requests.fetchTrendingTVShows;
+    else if (type === 'movies')
+        request = requests.fetchTrendingMovies;
+    else 
+        request = requests.fetchTrending;
 
     useEffect(() => {
         setLoading(true);
         const controller = new AbortController();
         async function fetchData() {
-            await axios.get(requests.fetchTrending, {signal: controller.signal}).then((request) => {
+            await axios.get(request, {signal: controller.signal}).then((request) => {
                 setMovie(request.data.results[Math.floor(Math.random() * request.data.results.length - 1)]);
             }).catch(() => {
                 console.log("Header Request Failed!");

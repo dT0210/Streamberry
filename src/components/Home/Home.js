@@ -31,6 +31,7 @@ function Home() {
                 <div style={{
                     marginTop: "65px"
                 }}>
+                    <Header type='tv'/>
                     <Row title='Trending Now' fetchURL={requests.fetchTrendingTVShows} mediaType="tv"/>
                     <Row title='Now Playing' fetchURL={requests.fetchLatestTVShows} mediaType="tv"/>
                     <Row title='Top Rated' fetchURL={requests.fetchTopRatedTVShows} mediaType="tv"/>
@@ -45,6 +46,7 @@ function Home() {
                 <div style={{
                     marginTop: "65px"
                 }}>
+                    <Header type='movies'/>
                     <Row title='Trending Now' fetchURL={requests.fetchTrendingMovies} mediaType="movie"/>
                     <Row title='Now Playing' fetchURL={requests.fetchLatestMovies} mediaType="movie"/>
                     <Row title='Top Rated' fetchURL={requests.fetchTopRatedMovies} mediaType="movie"/>
