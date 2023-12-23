@@ -37,7 +37,7 @@ function Header(props) {
         return () => {
             controller.abort();
         }
-    }, []);
+    }, [request]);
     const MoreInfoClick = () => {
         setOpenDialog(true);
     }
