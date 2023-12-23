@@ -81,7 +81,7 @@ function Nav() {
 
                 <img 
                 className="nav__avatar"
-                src="streamberry_logo.png"
+                src="/streamberry_logo.png"
                 alt=""
                 />
             </div>
