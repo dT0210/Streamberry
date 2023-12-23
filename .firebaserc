@@ -1,9 +1,0 @@
-{
-  "projects": {
-    "default": "streamberry-dt0210",
-    "watch-party": "watch-party-dth0210",
-    "watch party": "watch-party-dt0210"
-  },
-  "targets": {},
-  "etags": {}
-}
