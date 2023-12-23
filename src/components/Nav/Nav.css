@@ -25,9 +25,11 @@
     cursor: pointer;
 }
 
-.nav__home:hover,
-.nav__movies:hover,
-.nav__shows:hover {
+.nav__link.active {
+    color: white;
+}
+
+.nav__item:hover {
     cursor: pointer;
     color: rgb(160, 159, 159)
 }

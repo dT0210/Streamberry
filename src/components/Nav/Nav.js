@@ -30,20 +30,14 @@ function Nav() {
                         alt=""
                     />
                 </Link>
-                <Link to="/browse" className="nav__link">
-                    <span className="nav__home"
-                        style={location.pathname === '/browse' ? {color: "white"} : {}}
-                        >Home</span>
+                <Link to="/browse" className={`nav__link ${location.pathname === '/browse' ? 'active' : ''}`}>
+                    <span className="nav__item">Home</span>
                 </Link>
-                <Link to="/browse/movies" className="nav__link">
-                    <span className="nav__movies"
-                        style={location.pathname === '/browse/movies' ? {color: "white"} : {}}
-                        >Movies</span>
+                <Link to="/browse/movies" className={`nav__link ${location.pathname === '/browse/movies' ? 'active' : ''}`}>
+                    <span className="nav__item">Movies</span>
                 </Link>
-                <Link to="/browse/tv" className="nav__link">
-                    <span className="nav__shows"
-                        style={location.pathname === '/browse/tv' ? {color: "white"} : {}}
-                        >TV Shows</span>
+                <Link to="/browse/tv" className={`nav__link ${location.pathname === '/browse/tv' ? 'active' : ''}`}>
+                    <span className="nav__item">TV Shows</span>
                 </Link>
             </div>
             <div className="nav__right">
@@ -54,8 +48,8 @@ function Nav() {
                     <input
                         ref={inputField}
                         onBlur={() => {
-                        setQuery("");
-                        setShowSearch(false);
+                            setQuery("");
+                            setShowSearch(false);
                         }}
                         id="Search"
                         required
