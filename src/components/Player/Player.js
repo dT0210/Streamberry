@@ -13,9 +13,9 @@ function Player() {
     const navigate = useNavigate();
 
     if (type === 'tv')
-        URL = `https://multiembed.mov/directstream.php?video_id=${movieId}&tmdb=1&s=${season}&e=${episode}`;
+        URL = `https://vidsrc.xyz/embed/tv?tmdb=${movieId}&season=${season}&episode=${episode}`;
     else
-        URL = `https://multiembed.mov/directstream.php?video_id=${movieId}&tmdb=1`;
+        URL = `https://vidsrc.xyz/embed/movie?tmdb=${movieId}`;
     
     useEffect(() => {
         if (type === 'tv')
