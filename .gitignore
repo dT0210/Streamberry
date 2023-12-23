@@ -14,7 +14,7 @@
 #hosting
 .firebaserc
 firebase.json
-/.firebase
+.firebase
 .firebase/hosting.YnVpbGQ.cache
 
 #api
