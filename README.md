@@ -16,7 +16,7 @@ npm start
 
 ## Features:
 
-Home screen:\n
+Home screen:
 ![image](https://user-images.githubusercontent.com/121219177/220873600-37a117a4-efc1-4d1d-a44b-e8c3053402f0.png)
 
 Search results:
@@ -41,4 +41,4 @@ Actor details:
 - ReactJs, CSS
 - MUI
 
-Demo: [https://watch-party-dt0210.web.app/](https://watch-party-dth0210.web.app/)
+Demo: [https://streamberry-dt0210.web.app/](https://streamberry-dth0210.web.app/)
