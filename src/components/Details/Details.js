@@ -44,14 +44,16 @@ function Details(props) {
             controller.abort();
         }
     }, [type, detailsURL]);
-    console.log(movie?.media_type);
+
     useEffect(() => {
         const controller = new AbortController();
         async function fetchEpisodes() {
             await axios.get(`/${type}/${movie.id}/season/${tvSeason}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`, {signal: controller.signal})
             .then((request) => {
                 setEpisodes(request.data.episodes);
-            })
+            }).catch(() => {
+                console.log("Details Request Failed!");
+            });
         }
         fetchEpisodes();
         return () => {
